@@ -1,17 +1,31 @@
+
 import 'package:flutter/material.dart';
 
+import './category_meals_screen.dart';
+
 class CategoryItem extends StatelessWidget {
+  final String id;
   final String title;
   final Color color;
   const CategoryItem({
+    required this.id,
     required this.title,
     required this.color,
     Key? key,
   }) : super(key: key);
 
+  void selectCategory(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed(
+      CategoryMealsScreen.routeName,arguments: {
+        'id' : id,
+        'title' : title,
+      }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       child: Container(
         padding: const EdgeInsets.all(15),
         child: Text(
@@ -30,7 +44,9 @@ class CategoryItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
       ),
-      onTap: (){},
+      onTap: () => selectCategory(context),
+      splashColor: Theme.of(context).primaryColor,
+      borderRadius: BorderRadius.circular(15),
     );
   }
 }
