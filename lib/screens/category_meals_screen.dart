@@ -1,38 +1,43 @@
-
+import 'package:example/models/category.dart';
+import 'package:example/widgets/category_item.dart';
 import 'package:flutter/material.dart';
 
-import '../dummy_data.dart';
 import '../widgets/meal_item.dart';
+import '../dummy_data.dart';
 
 class CategoryMealsScreen extends StatelessWidget {
-  const CategoryMealsScreen({Key? key}) : super(key: key);
-
   static const routeName = '/category-meals';
+
+  // final String categoryId;
+  // final String categoryTitle;
+
+  // CategoryMealsScreen(this.categoryId, this.categoryTitle);
 
   @override
   Widget build(BuildContext context) {
-    final routeArgs =
-        ModalRoute.of(context)!.settings.arguments as Map<String, String>;
-    final categoryId = routeArgs['id'];
-    final categoryTitle = routeArgs['title'];
-
+    final args = ModalRoute.of(context)!.settings.arguments as Category;
+    // Map<String, String> routeArgs =
+    //     ModalRoute.of(context).settings.arguments as Map<String, String>;
+    // final categoryTitle = routeArgs['title'] ?? " ";
+    // final categoryId = routeArgs['id'] ?? " ";
+    final categoryTitle = args.title;
+    final categoryId = args.id;
     final categoryMeals = DUMMY_MEALS.where((meal) {
       return meal.categories.contains(categoryId);
     }).toList();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(categoryTitle!),
+        title: Text(categoryTitle),
       ),
       body: ListView.builder(
-        itemBuilder: (ctx, index){
-          //  Text(categoryMeals[index].title);
+        itemBuilder: (ctx, index) {
           return MealItem(
+            id: categoryMeals[index].id,
             title: categoryMeals[index].title,
             imageUrl: categoryMeals[index].imageUrl,
             duration: categoryMeals[index].duration,
-            complexity: categoryMeals[index].complexity,
             affordability: categoryMeals[index].affordability,
+            complexity: categoryMeals[index].complexity,
           );
         },
         itemCount: categoryMeals.length,
