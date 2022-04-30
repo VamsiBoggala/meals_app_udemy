@@ -17,7 +17,7 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
-  buildContainer( Widget child) {
+  buildContainer(Widget child) {
     return Container(
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(5),
@@ -36,8 +36,7 @@ class MealDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context)!.settings.arguments as String;
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
-    print(selectedMeal.steps);
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedMeal.title),
@@ -70,10 +69,9 @@ class MealDetailScreen extends StatelessWidget {
             ),
             buildSectionTitle(context, 'Ingredients'),
             buildContainer(
-               ListView.builder(
-                itemCount: selectedMeal.ingredients.length, 
+              ListView.builder(
+                itemCount: selectedMeal.ingredients.length,
                 itemBuilder: (context, index) {
-                  print(selectedMeal.ingredients);
                   return Card(
                     color: Theme.of(context).colorScheme.secondary,
                     child: Container(
@@ -101,10 +99,9 @@ class MealDetailScreen extends StatelessWidget {
             // ),
             buildSectionTitle(context, 'Steps'),
             buildContainer(
-               ListView.builder(
+              ListView.builder(
                 itemCount: selectedMeal.steps.length,
                 itemBuilder: (context, index) {
-                  
                   return ListTile(
                     leading: CircleAvatar(
                       child: Text('# ${(index + 1)}'),
